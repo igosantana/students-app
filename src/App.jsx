@@ -1,11 +1,11 @@
 import './App.css'
-import { Container, Typography } from '@mui/material'
+import AppRouter from './routes/appRouter'
 
 function App() {
   return (
-    <Container>
-      <Typography variant="h1">Hello World</Typography>
-    </Container>
+    <>
+      <AppRouter />
+    </>
   )
 }
 
