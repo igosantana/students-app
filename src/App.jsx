@@ -1,12 +1,5 @@
-import './App.css'
-import AppRouter from './routes/appRouter'
+import { Routes } from './routes'
 
-function App() {
-  return (
-    <>
-      <AppRouter />
-    </>
-  )
-}
+const App = () => <Routes />
 
 export default App

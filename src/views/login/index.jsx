@@ -6,23 +6,37 @@ import {
   Button,
   Paper,
 } from '@mui/material'
-import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { loginSuccess } from '../../redux/slices/authSlice'
+import { useForm } from 'react-hook-form'
+import { useCallback } from 'react'
+import { useAuth } from '../../contexts/AuthContext'
 
 const Login = () => {
-  const dispatch = useDispatch()
-  const { status, error } = useSelector((state) => state.auth)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+  const { signIn } = useAuth()
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    dispatch(loginSuccess({ username, password }))
-  }
+  const onSubmit = useCallback(
+    async (data) => {
+      signIn(data)
+    },
+    [signIn],
+  )
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container
+      component="main"
+      maxWidth="xs"
+      sx={{
+        width: '100%',
+        heigth: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
       <Paper
         sx={{
           marginTop: 8,
@@ -35,40 +49,50 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <Box component="form" noValidate sx={{ mt: 1 }}>
+        <Box
+          component="form"
+          noValidate
+          sx={{ mt: 1 }}
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <TextField
             margin="normal"
             required
             fullWidth
+            error={!!errors.username}
+            helperText={errors?.username?.message}
             id="username"
             label="Usuário"
             name="username"
             autoComplete="username"
             autoFocus
-            onChange={(e) => setUsername(e.target.value)}
+            {...register('username', {
+              required: 'Usuário é um campo obrigatório',
+            })}
           />
           <TextField
             margin="normal"
             required
             fullWidth
             name="password"
+            error={!!errors.password}
+            helperText={errors?.password?.message}
             label="Senha"
             type="password"
             id="password"
             autoComplete="current-password"
-            onChange={(e) => setPassword(e.target.value)}
+            {...register('password', {
+              required: 'Senha é um campo obrigatório',
+            })}
           />
           <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2, backgroundColor: '#008FD5' }}
-            onClick={handleSubmit}
           >
             ENTRAR
           </Button>
-          {status === 'loading' && <p>Carregando...</p>}
-          {status === 'failed' && <p>{error}</p>}
         </Box>
       </Paper>
     </Container>
