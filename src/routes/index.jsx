@@ -1,12 +1,9 @@
 import { Switch } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
 import Dashboard from '../views/dashboard'
 import Login from '../views/login'
-// import { PageNotFound } from '../pages/PageNotFound'
-import { Route } from './Route'
+import Route from './Route'
 
-export const Routes = () => {
-  const { accessToken } = useAuth()
+const Routes = () => {
   return (
     <Switch>
       <Route exact path="/" component={Login} />
@@ -14,3 +11,5 @@ export const Routes = () => {
     </Switch>
   )
 }
+
+export default Routes

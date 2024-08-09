@@ -1,5 +1,8 @@
 import { AuthProvider } from './AuthContext'
+import { StudentProvider } from './StudentsContext'
 
 export const AppProvider = ({ children }) => (
-  <AuthProvider>{children}</AuthProvider>
+  <AuthProvider>
+    <StudentProvider>{children}</StudentProvider>
+  </AuthProvider>
 )

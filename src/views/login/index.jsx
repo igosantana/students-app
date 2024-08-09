@@ -1,14 +1,8 @@
-import {
-  Typography,
-  Container,
-  Box,
-  TextField,
-  Button,
-  Paper,
-} from '@mui/material'
+import { Typography, Box, TextField, Button, Paper, Grid } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { useCallback } from 'react'
 import { useAuth } from '../../contexts/AuthContext'
+import { useHistory } from 'react-router-dom'
 
 const Login = () => {
   const {
@@ -17,17 +11,18 @@ const Login = () => {
     formState: { errors },
   } = useForm()
   const { signIn } = useAuth()
+  const history = useHistory()
 
   const onSubmit = useCallback(
     async (data) => {
-      signIn(data)
+      signIn(data).then(() => history.push('/dashboard'))
     },
-    [signIn],
+    [signIn, history],
   )
 
   return (
-    <Container
-      component="main"
+    <Grid
+      container
       maxWidth="xs"
       sx={{
         width: '100%',
@@ -44,6 +39,7 @@ const Login = () => {
           flexDirection: 'column',
           alignItems: 'center',
           padding: '16px',
+          maxWidth: '400px',
         }}
       >
         <Typography component="h1" variant="h5">
@@ -95,7 +91,7 @@ const Login = () => {
           </Button>
         </Box>
       </Paper>
-    </Container>
+    </Grid>
   )
 }
 
