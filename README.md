@@ -11,7 +11,7 @@ Este é um aplicativo de gerenciamento de estudantes utilizando React, Material-
 - **Axios**: Cliente HTTP para fazer requisições à API.
 
 ## Estrutura do Projeto
-
+```bash
 src/
 ├── assets/
 │ └── logo.js
@@ -42,7 +42,7 @@ src/
 │    └── index.jsx
 │ └── login/
 │    └── index.jsx
-
+```
 ## Instalação
 
 1. Clone o repositório:
@@ -70,6 +70,6 @@ src/
    ```
 
 
-##Licença
+## Licença
 
 MIT
